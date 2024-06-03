@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block titulo %}
+Lista de trenes
+{% endblock titulo %}
+    
+{% block contenido %}
+<h1>Lista de trenes</h1>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>No de maquina</th>
+            <th>ID de GPS</th>
+            <th>Ubicacion</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>No de serie</th>  
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for trenes in object_list %}
+        <tr>
+            <td>{{trenes.idmaquina}}</td>
+            <td>
+                {% if trenes.idgps %}
+                    {{trenes.idgps}}
+                {% else %}
+                    No tiene id GPS
+                {% endif %}
+            </td>
+            <td>
+                {% if trenes.ubicacion %}
+                    {{trenes.ubicacion}}
+                {% else %}
+                    No tiene ubicación
+                {% endif %}
+            </td>
+            <td>    
+                {% if trenes.marca %}
+                    {{trenes.marca}}
+                {% else %}
+                    No tiene marca
+                {% endif %}
+            </td>
+            <td>    
+                {% if trenes.modelo %}
+                    {{trenes.modelo}}
+                {% else %}
+                    No tiene modelo
+                {% endif %}
+            </td>
+            <td>    
+                {% if trenes.serie %}
+                    {{trenes.serie}}
+                {% else %}
+                    No cuenta con serie
+                {% endif %}
+
+            </td>
+            <td>
+                
+                <a class="btn btn-outline-success btn-sm" href="{% url 'editar_trenes' trenes.id %}">Editar</a>
+                <a class="btn btn-outline-danger btn-sm href="href="{% url 'eliminar_trenes' trenes.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">
+                <p>No existen trenes registrados</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}

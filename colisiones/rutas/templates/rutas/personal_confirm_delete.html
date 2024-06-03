@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <form method = "post" class = "form">
+        {% csrf_token %}
+        <p>¿Deseas eliminar {{object}}?</p>
+        <input type = "submit" value ="Eliminar" class="btn btn-outline-danger btn-sm">
+        <a class = "btn btn-outline-success btn-sm" href="{% url 'trenes_list' %}">Regresar</a>
+
+    </form> 
+{% endblock contenido %}

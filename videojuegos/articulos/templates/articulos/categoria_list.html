@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block titulo %}
+Lista de videojuegos
+{% endblock titulo %}
+    
+{% block contenido %}
+<h1>Lista de categorias</h1>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in object_list %}
+        <tr>
+            <td>{{categoria.nombre}}</td>
+            <td>
+                {% if categoria.descripcion %}
+                    {{categoria.descripcion}}
+                {% else %}
+                    No cuenta con descripción
+                {% endif %}
+            </td>
+            <td>
+                
+                <a class="btn btn-outline-success btn-sm" href="{% url 'editar_categoria' categoria.id %}">Editar</a>
+                <a class="btn btn-outline-danger btn-sm href="href="{% url 'eliminar_categoria' categoria.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">
+                <p>No existen categorias registradas</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}

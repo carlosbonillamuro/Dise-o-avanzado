@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block titulo %}
+    Editar de videojuego
+{% endblock titulo %}
+{% block contenido %}
+
+<h1>Editar artículo</h1>
+<form method="post">
+   {% csrf_token %}
+    {{form.as_p}}
+    <input class = "btn btn-outline-success btn-sm" type = "submit" value="Guardar">
+    <a class="btn btn-outline-danger btn-sm" href="{% url 'lista_articulos' %}"'>Cancelar</a>
+
+</form>
+{% endblock contenido %}
+
+{% block scripts %}
+{ % comment %} <script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
+{% endblock scripts %}

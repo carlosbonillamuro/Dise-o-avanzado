@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block titulo %}
+Lista de Rutas
+{% endblock titulo %}
+    
+{% block contenido %}
+<h1>Lista de las rutas de trenes</h1>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>No de Viaje</th>
+            <th>No de Maquina</th>
+            <th>Nombre del maquinista</th>
+            <th>Estacion de origen</th>
+            <th>Estacion de LLegada</th>
+            <th>Fecha de salida</th>
+            <th>Fecha de llegada</th>  
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for rutas in object_list %}
+        <tr>
+            <td>{{rutas.viajes}}</td>
+            <td>
+                {% if rutas.maquina %}
+                    {{rutas.maquina}}
+                {% else %}
+                    No tiene No de maquina
+                {% endif %}
+            </td>
+            <td>    
+                {% if rutas.maquinista %}
+                    {{rutas.maquinista}}
+                {% else %}
+                    No tiene nombre de maquinista
+                {% endif %}
+
+            </td>
+
+            <td>
+                {% if rutas.origen %}
+                    {{rutas.origen}}
+                {% else %}
+                    No tiene Estacion de origen
+                {% endif %}
+            </td>
+            <td>    
+                {% if rutas.destino %}
+                    {{rutas.destino}}
+                {% else %}
+                No tiene Estacion de destino
+                {% endif %}
+            </td>
+            <td>    
+                {% if rutas.salida %}
+                    {{rutas.salida}}
+                {% else %}
+                    No tiene fecha de salida
+                {% endif %}
+            </td>
+            <td>    
+                {% if rutas.llegada %}
+                    {{rutas.llegada}}
+                {% else %}
+                    No tiene fecha de llegada
+                {% endif %}
+            </td>
+            <td>
+                
+                <a class="btn btn-outline-success btn-sm" href="{% url 'editar_trenes' rutas.pk %}">Editar</a>
+                <a class="btn btn-outline-danger btn-sm href="href="{% url 'eliminar_trenes' rutas.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">
+                <p>No existen rutas registradas</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}

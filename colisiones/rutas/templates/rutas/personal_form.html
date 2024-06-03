@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block titulo %}
+    {{accion}} Personal
+{% endblock titulo %}
+
+{% block contenido %}
+<h1>{{accion}} Personal</h1>
+<form method="post">
+   {% csrf_token %}
+    {{form.as_p}}
+    <input class = "btn btn-outline-success btn-sm" type = "submit"
+    {% if accion == 'Nuevo' %}
+        value="Agregar">
+    {% else %}
+       value="Guardar">
+    {% endif %}
+    <a class="btn btn-outline-danger btn-sm" href="{% url 'personal_list' %}"'>Cancelar</a>
+
+</form>
+{% endblock contenido %}
+
+{% block scripts %}
+{ % comment %} <script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
+{% endblock scripts %}

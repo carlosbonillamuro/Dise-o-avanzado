@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block titulo %}
+Lista del Personal
+{% endblock titulo %}
+    
+{% block contenido %}
+<h1>Lista de personal operativo</h1>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{message}}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Puesto</th>
+            <th>No de empleado</th>
+            <th>Licencia de conductor</th>
+            <th>Fecha de ingreso</th>
+            <th>No de Seguro Social</th>  
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for personal in object_list %}
+        <tr>
+            <td>{{personal.nombre}}</td>
+            <td>
+                {% if personal.cargo %}
+                    {{personal.cargo}}
+                {% else %}
+                    No tiene puesto
+                {% endif %}
+            </td>
+            <td>
+                {% if personal.empleado %}
+                    {{personal.empleado}}
+                {% else %}
+                    No cuenta con No de empleado
+                {% endif %}
+            </td>
+            <td>    
+                {% if personal.licencia %}
+                    {{personal.licencia}}
+                {% else %}
+                    No cuenta Licencia
+                {% endif %}
+
+            </td>
+            <td>    
+                {% if personal.ingreso %}
+                    {{personal.ingreso}}
+                {% else %}
+                    No cuenta fecha de ingreso
+                {% endif %}
+            </td>
+            <td>    
+                {% if personal.segurosocial %}
+                    {{personal.segurosocial}}
+                {% else %}
+                    No cuenta No de Seguridad Social
+                {% endif %}
+            </td>
+            
+            <td>
+                
+                <a class="btn btn-outline-success btn-sm" href="{% url 'editar_personal' personal.pk %}">Editar</a>
+                <a class="btn btn-outline-danger btn-sm href="href="{% url 'eliminar_personal' personal.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">
+                <p>No existen personas registradass</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}
